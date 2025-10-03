@@ -30,28 +30,28 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 ### Step 1: Determine Available Hosts and Subnets
 
 - How many host addresses are available in a /25 network?  
-  _Answer:_  
+  _Answer:126  
 - What is the total number of host addresses needed in the topology?  
-  _Answer:_  
+  _Answer:80  
 - How many subnets are needed in the network topology?  
-  _Answer:_  
+  _Answer:6  
 
 ---
 
 ### Step 2: Determine the Largest Subnet
 
 - Subnet description:  
-  _Answer:_  
+  _Answer:BR1 LAN  
 - Number of IP addresses required:  
-  _Answer:_  
+  _Answer:40  
 - Subnet mask needed:  
-  _Answer:_  
+  _Answer:/26  
 - Total host addresses supported:  
-  _Answer:_  
+  _Answer:62  
 - Can the `/25` network support this subnet?  
-  _Answer:_  
+  _Answer:Yes, 2 /26 in a /25  
 - Resulting network addresses:  
-  _Answer:_  
+  _Answer:192.168.33.128 - 192.168.33.191  
 - Use the first network address for this subnet.
 
 ---
@@ -59,17 +59,17 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 ### Step 3: Determine the Second Largest Subnet
 
 - Subnet description:  
-  _Answer:_  
+  _Answer:BR2 LAN  
 - Number of IP addresses required:  
-  _Answer:_  
+  _Answer:25  
 - Subnet mask needed:  
-  _Answer:_  
+  _Answer:/27  
 - Total host addresses supported:  
-  _Answer:_  
+  _Answer:30  
 - Can the remaining subnet support this?  
-  _Answer:_  
+  _Answer:yes, 2 /27 can fit in the remain /26  
 - Resulting network addresses:  
-  _Answer:_  
+  _Answer:192.168.33.192 - 192.168.33.223  
 - Use the first network address for this subnet.
 
 ---
@@ -77,17 +77,19 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 ### Step 4: Determine the Third Largest Subnet
 
 - Subnet description:  
-  _Answer:_  
+  _Answer:BR2 IoT LAN (CCTV LAN & HVAC LAN uses same size subnet)  
 - Number of IP addresses required:  
-  _Answer:_  
+  _Answer:5  
 - Subnet mask needed:  
-  _Answer:_  
+  _Answer:/29  
 - Total host addresses supported:  
-  _Answer:_  
+  _Answer:6  
 - Can the remaining subnet support this?  
-  _Answer:_  
+  _Answer:yes, the remaining /27 can fit 4 /29 subnets, we need to use 3 of them  
 - Resulting network addresses:  
-  _Answer:_  
+  _Answer:192.168.33.224 - 192.168.33.231
+		  192.168.33.232 - 192.168.33.239
+		  192.168.33.240 - 192.168.33.247
 - Use the first address for this subnet  
 - Use second for CCTV LAN  
 - Use third for HVAC C2 LAN
@@ -97,17 +99,17 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 ### Step 5: Determine the Fourth Largest Subnet
 
 - Subnet description:  
-  _Answer:_  
+  _Answer:BR1-BR2 Link  
 - Number of IP addresses required:  
-  _Answer:_  
+  _Answer:2  
 - Subnet mask needed:  
-  _Answer:_  
+  _Answer:/30  
 - Total host addresses supported:  
-  _Answer:_  
+  _Answer:2  
 - Can the remaining subnet support this?  
-  _Answer:_  
+  _Answer:Yes, we can fit 2 /30 in the last /29  
 - Resulting network addresses:  
-  _Answer:_  
+  _Answer: 192.168.33.248 - 192.168.33.251
 - Use the first network address for this subnet.
 
 ---
@@ -116,14 +118,14 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 
 ### Step 1: Calculate Subnet Information
 
-| Subnet Description   | Hosts Needed | Network Address /CIDR | First Host Address | Broadcast Address |
+| Subnet Description   | Hosts Needed | Network Address /CIDR  | First Host Address | Broadcast Address |
 |----------------------|--------------|------------------------|--------------------|-------------------|
-| BR1 LAN              | 40           |                        |                    |                   |
-| BR2 LAN              | 25           |                        |                    |                   |
-| BR2 IoT LAN          | 5            |                        |                    |                   |
-| BR2 CCTV LAN         | 4            |                        |                    |                   |
-| BR2 HVAC C2 LAN      | 4            |                        |                    |                   |
-| BR1-BR2 Link         | 2            |                        |                    |                   |
+| BR1 LAN              | 40           |          /26           | 192.168.33.129     | 192.168.33.191    |
+| BR2 LAN              | 25           |          /27           | 192.168.33.193     | 192.168.33.223    |
+| BR2 IoT LAN          | 5            |          /29           | 192.168.33.225     | 192.168.33.231    |
+| BR2 CCTV LAN         | 4            |          /29           | 192.168.33.233     | 192.168.33.239    |
+| BR2 HVAC C2 LAN      | 4            |          /29           | 192.168.33.241     | 192.168.33.247    |
+| BR1-BR2 Link         | 2            |          /30           | 192.168.33.248     | 192.168.33.251    |
 
 ---
 
@@ -165,9 +167,8 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 
 ### Step 4: Save Configuration and Test Connectivity
 
-- From BR1, ping BR2 G0/0/0  
-- From BR2, ping BR1 G0/0/0  
-- Troubleshoot if pings fail
+Adjustments to addresses were made due to only one router being available;
+![Pings](Module 6/Lab Reports/VLSM-Pings.png)
 
 **Note:** Pings to LAN interfaces may fail without routing protocols and active interfaces.
 
@@ -176,7 +177,7 @@ Variable Length Subnet Masking (VLSM) allows subnetting a network multiple times
 ## Reflection Question
 
 **Can you think of a shortcut for calculating the network addresses of consecutive /30 subnets?**  
-_Answer:_  
+_Answer: Add 4 to the previous one to get the next  
 
 ---
 
