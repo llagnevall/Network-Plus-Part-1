@@ -37,9 +37,6 @@
 
 ### Step 1: Cable the network as shown in the topology
 
-**Screenshot Placeholder:**  
-`![NetworkTopology`
-
 ---
 
 ### Step 2: Configure basic settings for each switch
@@ -58,8 +55,6 @@
 ### Step 3: Configure PC hosts
 
 - Refer to the Addressing Table for IP configuration  
-**Screenshot Placeholder:**  
-`!PC IP Configuration`
 
 ---
 
@@ -80,6 +75,7 @@
 3. Verify VLAN assignments using `show vlan brief`  
 
 ---
+![S1 Configuration](/Network-Plus-Part-1/blob/master/Module%207/Lab%20Reports/Vlan-S1Config.PNG)
 
 ## Part 3: Configure an 802.1Q Trunk Between the Switches
 
@@ -91,18 +87,21 @@
 4. Verify trunking with `show interfaces trunk`  
 
 ---
+![S2 Configuration](/Network-Plus-Part-1/blob/master/Module%207/Lab%20Reports/Vlan-S2Config.PNG)
 
 ### Step 2: Verify connectivity
 
 - **Can PC-A ping S1 VLAN 20?**  
-  _Answer:_  
+  _Answer:_  Yes, it is part of the same VLAN so it is able to ping
 
 - **Were the pings from PC-B to S2 successful? Explain.**  
-  _Answer:_  
+  _Answer:_  PC-B was not able to ping S2 due to no IP on the same VLAN as it existing on that switch.
+  
+![Pings](/Network-Plus-Part-1/blob/master/Module%207/Lab%20Reports/Vlan-Pings.PNG)
 
 ---
 
 ## Reflection
 
 **Why is trunking important for VLAN communication across switches? What issues might arise if trunking is misconfigured?**  
-_Answer:_  
+_Answer:_ A trunk link allows communication between switches which can allow communication between different VLANs. If it is misconfigured there will likely be dropped connections and no communication.
